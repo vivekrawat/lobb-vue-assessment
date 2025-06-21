@@ -10,7 +10,7 @@ const { content } = storeToRefs(contentStore())
     <div>
       <img class="h-[60px] object-contain" :src="content?.logo" alt="" />
     </div>
-    <div class="p-2 font-serif grow">
+    <div class="p-2 grow">
       <p class="text-sm text-primary-foreground font-bold">{{ content?.title }}</p>
       <p class="text-xs">{{ content?.subTitle }}</p>
     </div>

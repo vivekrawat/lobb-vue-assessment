@@ -33,7 +33,7 @@ const toDetails = () => {
             </button>
           </div>
         </div>
-        <img @click="toDetails" class="cursor-pointer h-[450px] sm:h-[600px]" :src="content?.mainImage" alt="">
+        <img @click.stop="toDetails" class="cursor-pointer h-[450px] sm:h-[600px]" :src="content?.mainImage" alt="">
         <Title/>
       </div>
   </div>
