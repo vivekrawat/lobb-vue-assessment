@@ -25,7 +25,7 @@ const onSubmit = form.handleSubmit(async (values) => {
   console.log(values);
   const res = await getToken(values);
   if(res) {
-    router.push('./content')
+    router.push('/')
   }
 });
 
