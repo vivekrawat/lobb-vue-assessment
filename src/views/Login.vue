@@ -5,7 +5,9 @@ import { z } from 'zod';
 import { toTypedSchema } from '@vee-validate/zod';
 import { userStore } from '../stores/user'
 import { LoginSchema } from '@/models/loginSchema'
+import { useRouter } from 'vue-router';
 
+const router = useRouter()
 const { getToken } = userStore()
 
 const errors = ref<Record<string,string>>({})
@@ -21,7 +23,10 @@ const form = useForm({
 
 const onSubmit = form.handleSubmit(async (values) => {
   console.log(values);
-  await getToken(values);
+  const res = await getToken(values);
+  if(res) {
+    router.push('./content')
+  }
 });
 
 const canSubmit = computed(() => {
