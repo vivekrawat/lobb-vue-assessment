@@ -6,7 +6,10 @@ import { toTypedSchema } from '@vee-validate/zod';
 import { userStore } from '../stores/user'
 import { LoginSchema } from '@/models/loginSchema'
 import { useRouter } from 'vue-router';
+import { useStylesStore } from '@/stores/styles'
 
+
+const { setLoadingMessage }  = useStylesStore()
 const router = useRouter()
 const { getToken } = userStore()
 
@@ -22,8 +25,9 @@ const form = useForm({
 });
 
 const onSubmit = form.handleSubmit(async (values) => {
-  console.log(values);
+  setLoadingMessage('Entering')
   const res = await getToken(values);
+  setLoadingMessage('')
   if(res) {
     router.push('/')
   }

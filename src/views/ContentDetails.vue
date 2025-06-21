@@ -5,12 +5,21 @@ import { contentStore } from '@/stores/content';
 import { storeToRefs } from 'pinia';
 import {ArrowUp, X} from "lucide-vue-next";
 import { useRouter } from 'vue-router';
+import { useStylesStore } from '@/stores/styles'
+const { setLoadingMessage }  = useStylesStore()
+
 const router = useRouter()
 const { content } = storeToRefs(contentStore())
 const { getContent } = contentStore()
 onMounted(async () => {
   await getContent()
 })
+
+const refetchContent = async () => {
+  setLoadingMessage('Refetching Content')
+  await getContent()
+  setLoadingMessage('')
+}
 </script>
 <template>
   <div class="flex justify-center">
@@ -44,7 +53,7 @@ onMounted(async () => {
           <p class="text-xs">{{ content?.subTitle }}</p>
         </div>
         <div>
-          <button @click.stop="getContent"
+          <button @click.stop="refetchContent"
             class="uppercase font-bold py-2 px-3 bg-primary rounded-full hover:scale-105 text-background">
             refresh
           </button>

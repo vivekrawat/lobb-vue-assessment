@@ -8,7 +8,6 @@ export const contentStore = defineStore("content", () => {
   const content = ref<Content>();
   const getContent = async () => {
     try {
-
       const res = await fetch(contentUrl + 'getContent', {
         method: 'GET',
         headers: {
@@ -20,9 +19,10 @@ export const contentStore = defineStore("content", () => {
       const result = await res.json();
       // content.value = contentSchema.parse(result.content);
       content.value = result.content
-      console.log(content.value)
+      return true
     } catch (err) {
       console.log(err);
+      return false
     }
   }
   return { content:readonly(content), getContent };

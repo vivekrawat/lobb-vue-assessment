@@ -3,6 +3,14 @@ import { contentStore } from '@/stores/content'
 import { storeToRefs } from 'pinia'
 const { getContent } = contentStore()
 const { content } = storeToRefs(contentStore())
+import { useStylesStore } from '@/stores/styles'
+const { setLoadingMessage }  = useStylesStore()
+
+const refetchContent = async () => {
+  setLoadingMessage('Refetching Content')
+  await getContent()
+  setLoadingMessage('')
+}
 </script>
 
 <template>
@@ -16,7 +24,7 @@ const { content } = storeToRefs(contentStore())
     </div>
     <div>
       <button
-        @click.stop="getContent"
+        @click.stop="refetchContent"
         class="text-primary uppercase font-bold py-2 px-3 bg-input border-2 border-primary rounded-full hover:scale-105"
       >
         refresh

@@ -5,12 +5,16 @@ import { contentStore } from '../stores/content';
 import { dates } from '@/Composables/dates'
 import Title from '@/components/title.vue';
 import router from '@/router';
+import { useStylesStore } from '@/stores/styles'
+const { setLoadingMessage }  = useStylesStore()
 
 const {dayName, dayNumber, monthName} = dates()
 const { getContent } = contentStore()
 const { content } = storeToRefs(contentStore())
 onMounted(async () => {
+  setLoadingMessage('loading Content')
   await getContent()
+  setLoadingMessage('')
 })
 const getNameLetters = computed(() => {
   return content.value?.userName.split(' ').map(item => item[0]).join('')
