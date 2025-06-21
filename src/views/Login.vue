@@ -3,10 +3,10 @@ import { computed, ref } from 'vue';
 import { useForm } from 'vee-validate';
 import { z } from 'zod';
 import { toTypedSchema } from '@vee-validate/zod';
+import { userStore } from '../stores/user'
+import { LoginSchema } from '@/models/loginSchema'
 
-const LoginSchema = z.object({
-  email: z.string().min(1, 'Email is required').email('Invalid email address')
-})
+const { getToken } = userStore()
 
 const errors = ref<Record<string,string>>({})
 const form = useForm({
@@ -19,10 +19,10 @@ const form = useForm({
   }
 });
 
-const onSubmit = () => {
-  form.handleSubmit(values => {
-    console.log(values)})
-}
+const onSubmit = form.handleSubmit(async (values) => {
+  console.log(values);
+  await getToken(values);
+});
 
 const canSubmit = computed(() => {
   try {
@@ -53,11 +53,11 @@ const handleChange = (key: 'email', val: EventTarget | null) => {
         <img src="@/assets/zoro.png" class="h-[150px] object-contain" alt="">
         <!-- <div class="text-3xl text-primary font-extrabold">XORO</div> -->
       </div>
-      <div class="mt-5">
-        <form @submit="onSubmit">
+      <div class="mt-2">
+        <form @submit.prevent="onSubmit">
           <input type="text" @input="(e) => handleChange('email', e.target)" placeholder="Email" class="bg-background text-white w-full text-md p-3 border-2 border-background rounded-lg">
           <p v-show="!canSubmit && form.values['email']" class="text-destructive capitalize text-[14px] mt-1 ml-1">{{errors['email']}}</p>
-          <button :disabled="!canSubmit" class="cursor-pointer ext-lg bg-primary disabled:opacity-60 mt-10 w-full uppercase font-extrabold py-4 rounded-lg text-background ring-none">continue</button>
+          <button :disabled="!canSubmit" class="cursor-pointer text-lg bg-primary disabled:opacity-60 mt-3 w-full uppercase font-extrabold py-4 rounded-lg text-background ring-none">continue</button>
         </form>
       </div>
     </div>
