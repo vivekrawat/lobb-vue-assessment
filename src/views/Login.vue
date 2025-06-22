@@ -9,7 +9,7 @@ import { useRouter } from 'vue-router';
 import { useStylesStore } from '@/stores/styles'
 
 
-const { setLoadingMessage }  = useStylesStore()
+const { setLoadingMessage, setToastDetails }  = useStylesStore()
 const router = useRouter()
 const { getToken } = useUserStore()
 
@@ -29,7 +29,18 @@ const onSubmit = form.handleSubmit(async (values) => {
   const res = await getToken(values);
   setLoadingMessage('')
   if(res) {
+    setToastDetails({
+      title: 'Success',
+      description: 'Successfully logged in',
+      type: 'success'
+    })
     router.push('/')
+  } else {
+    setToastDetails({
+      title: 'Error',
+      description: 'Invalid credentials, Please try again',
+      type: 'error'
+    })
   }
 });
 
