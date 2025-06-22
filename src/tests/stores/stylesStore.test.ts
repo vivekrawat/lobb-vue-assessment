@@ -15,4 +15,16 @@ describe('StylesStore', () => {
     store.setLoadingMessage('Loading...')
     expect(store.loadingMessage).toBe('Loading...')
   })
+
+  it('sets and gets toast details', () => {
+    const store = useStylesStore()
+
+    expect(store.toastDetails).toBe(undefined)
+    
+    store.setToastDetails({title: 'Error', type: 'error', description: 'Something went wrong'})
+    expect(store.toastDetails).toEqual({title: 'Error', type: 'error', description: 'Something went wrong'})
+    
+    store.resetToastDetails()
+    expect(store.toastDetails).toBe(undefined)
+  })
 })
