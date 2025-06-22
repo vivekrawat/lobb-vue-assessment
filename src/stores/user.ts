@@ -7,7 +7,7 @@ const authUrl = import.meta.env.VITE_AUTH_URL
 type Response = {
   token: string
 }
-export const userStore = defineStore('user', () => {
+export const useUserStore = defineStore('user', () => {
   const user = ref()
   const getToken = async (data: Login) => {
     try {

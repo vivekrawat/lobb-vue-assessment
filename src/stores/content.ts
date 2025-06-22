@@ -4,7 +4,7 @@ import { contentSchema, type Content } from "@/models/contentSchema";
 
 
 const contentUrl = import.meta.env.VITE_CONTENT_URL
-export const contentStore = defineStore("content", () => {
+export const useContentStore = defineStore("content", () => {
   const content = ref<Content>();
   const getContent = async () => {
     try {

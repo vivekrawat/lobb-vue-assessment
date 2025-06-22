@@ -1,16 +1,16 @@
 <script lang="ts" setup>
 import { onMounted, computed } from 'vue';
 import { storeToRefs } from 'pinia';
-import { contentStore } from '../stores/content';
-import { dates } from '@/Composables/dates'
+import { useContentStore } from '../stores/content';
+import { dates } from '@/Composables/useDates'
 import Title from '@/components/title.vue';
 import router from '@/router';
 import { useStylesStore } from '@/stores/styles'
 const { setLoadingMessage }  = useStylesStore()
 
 const {dayName, dayNumber, monthName} = dates()
-const { getContent } = contentStore()
-const { content } = storeToRefs(contentStore())
+const { getContent } = useContentStore()
+const { content } = storeToRefs(useContentStore())
 onMounted(async () => {
   setLoadingMessage('loading Content')
   if(!content.value)
@@ -20,6 +20,13 @@ onMounted(async () => {
 const getNameLetters = computed(() => {
   return content.value?.userName.split(' ').map(item => item[0]).join('')
 })
+/**
+ * Navigate to the details page.
+ * @function toDetails
+ * @example
+ * <button type="button" @click="toDetails">Go to details</button>
+ */
+
 const toDetails = () => {
   router.push('/details')
 }

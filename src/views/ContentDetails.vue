@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Title from '@/components/title.vue'
 import { onMounted } from 'vue';
-import { contentStore } from '@/stores/content';
+import { useContentStore } from '@/stores/content';
 import { storeToRefs } from 'pinia';
 import {ArrowUp, X} from "lucide-vue-next";
 import { useRouter } from 'vue-router';
@@ -9,8 +9,8 @@ import { useStylesStore } from '@/stores/styles'
 const { setLoadingMessage }  = useStylesStore()
 
 const router = useRouter()
-const { content } = storeToRefs(contentStore())
-const { getContent } = contentStore()
+const { content } = storeToRefs(useContentStore())
+const { getContent } = useContentStore()
 onMounted(async () => {
   if(!content.value)
   await getContent()

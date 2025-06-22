@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { contentStore } from '@/stores/content'
+import { useContentStore } from '@/stores/content'
 import { storeToRefs } from 'pinia'
-const { getContent } = contentStore()
-const { content } = storeToRefs(contentStore())
+const { getContent } = useContentStore()
+const { content } = storeToRefs(useContentStore())
 import { useStylesStore } from '@/stores/styles'
 const { setLoadingMessage }  = useStylesStore()
 

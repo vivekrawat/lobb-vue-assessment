@@ -3,7 +3,7 @@ import { computed, ref } from 'vue';
 import { useForm } from 'vee-validate';
 import { z } from 'zod';
 import { toTypedSchema } from '@vee-validate/zod';
-import { userStore } from '../stores/user'
+import { useUserStore } from '../stores/user'
 import { LoginSchema } from '@/models/loginSchema'
 import { useRouter } from 'vue-router';
 import { useStylesStore } from '@/stores/styles'
@@ -11,7 +11,7 @@ import { useStylesStore } from '@/stores/styles'
 
 const { setLoadingMessage }  = useStylesStore()
 const router = useRouter()
-const { getToken } = userStore()
+const { getToken } = useUserStore()
 
 const errors = ref<Record<string,string>>({})
 const form = useForm({
