@@ -12,6 +12,7 @@ const router = useRouter()
 const { content } = storeToRefs(contentStore())
 const { getContent } = contentStore()
 onMounted(async () => {
+  if(!content.value)
   await getContent()
 })
 

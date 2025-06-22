@@ -13,6 +13,7 @@ const { getContent } = contentStore()
 const { content } = storeToRefs(contentStore())
 onMounted(async () => {
   setLoadingMessage('loading Content')
+  if(!content.value)
   await getContent()
   setLoadingMessage('')
 })
