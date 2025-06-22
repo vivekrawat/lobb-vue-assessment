@@ -6,13 +6,19 @@ import { dates } from '@/Composables/useDates'
 import Title from '@/components/title.vue';
 import router from '@/router';
 import { useStylesStore } from '@/stores/styles'
+import LogoutConfirmation from '@/components/logoutConfirmation.vue';
+import { useUserStore } from '@/stores/user';
+
+const { logoutConfirmationDialog } = storeToRefs(useUserStore())
+const { toggleLogoutConfirmationDialog } = useUserStore()
 const { setLoadingMessage }  = useStylesStore()
 
 const {dayName, dayNumber, monthName} = dates()
 const { getContent } = useContentStore()
 const { content } = storeToRefs(useContentStore())
+
 onMounted(async () => {
-  setLoadingMessage('loading Content')
+  setLoadingMessage('Fetching Content')
   if(!content.value)
   await getContent()
   setLoadingMessage('')
@@ -40,9 +46,12 @@ const toDetails = () => {
             Today
           </div>
           <div>
-            <button class="inline-block text-xl font-bold uppercase rounded-full px-3 py-2 bg-primary text-background">
+            <button @click="toggleLogoutConfirmationDialog(true)" class="inline-block text-xl font-bold uppercase rounded-full px-3 py-2 bg-primary text-background">
               {{ getNameLetters }}
             </button>
+            <div v-if="logoutConfirmationDialog">
+              <LogoutConfirmation/>
+            </div>
           </div>
         </div>
         <img @click.stop="toDetails" class="cursor-pointer h-[450px] sm:h-[600px]" :src="content?.mainImage" alt="">

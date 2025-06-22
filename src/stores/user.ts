@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { ref, readonly } from 'vue'
 import { type Login } from '@/models/loginSchema'
 
 const authUrl = import.meta.env.VITE_AUTH_URL
@@ -9,6 +9,7 @@ type Response = {
 }
 export const useUserStore = defineStore('user', () => {
   const user = ref()
+  const logoutConfirmationDialog = ref(false)
   const getToken = async (data: Login) => {
     try {
       const res = await fetch(authUrl + 'generateToken', {
@@ -31,7 +32,17 @@ export const useUserStore = defineStore('user', () => {
       return false
     }
   }
+  const toggleLogoutConfirmationDialog = (val: boolean) => {
+    logoutConfirmationDialog.value = val
+  }
+  const logout = () => {
+    toggleLogoutConfirmationDialog(false)
+    sessionStorage.removeItem('token')
+  }
   return {
     getToken,
+    toggleLogoutConfirmationDialog,
+    logoutConfirmationDialog: readonly(logoutConfirmationDialog),
+    logout
   }
 })
