@@ -26,10 +26,10 @@ export const useStylesStore = defineStore('styles', () => {
   }
   
   return {
-    loadingMessage: readonly(loadingMessage), 
+    loadingMessage,
     setLoadingMessage ,
     setToastDetails,
     resetToastDetails,
-    toastDetails: readonly(toastDetails)
+    toastDetails,
   }
 })

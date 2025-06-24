@@ -6,6 +6,10 @@ import { contentSchema, type Content } from "@/models/contentSchema";
 const contentUrl = import.meta.env.VITE_CONTENT_URL
 export const useContentStore = defineStore("content", () => {
   const content = ref<Content>();
+
+  const setContent = (newContent: Content) => {
+    content.value = newContent
+  }
   const getContent = async () => {
     try {
       const res = await fetch(contentUrl + 'getContent', {
@@ -18,12 +22,13 @@ export const useContentStore = defineStore("content", () => {
       });
       const result = await res.json();
       // content.value = contentSchema.parse(result.content);
-      content.value = result.content
+      // content.value = result.content
+      setContent(result.content)
       return true
     } catch (err) {
       console.log(err);
       return false
     }
   }
-  return { content:readonly(content), getContent };
+  return { content, getContent, setContent };
 });

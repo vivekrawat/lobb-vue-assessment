@@ -42,7 +42,7 @@ export const useUserStore = defineStore('user', () => {
   return {
     getToken,
     toggleLogoutConfirmationDialog,
-    logoutConfirmationDialog: readonly(logoutConfirmationDialog),
+    logoutConfirmationDialog,
     logout
   }
 })

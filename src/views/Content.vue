@@ -6,7 +6,7 @@ import { dates } from '@/Composables/useDates'
 import Title from '@/components/title.vue';
 import router from '@/router';
 import { useStylesStore } from '@/stores/styles'
-import LogoutConfirmation from '@/components/logoutConfirmation.vue';
+import LogoutConfirmation from '@/components/LogoutConfirmation.vue';
 import { useUserStore } from '@/stores/user';
 
 const { logoutConfirmationDialog } = storeToRefs(useUserStore())
@@ -26,12 +26,6 @@ onMounted(async () => {
 const getNameLetters = computed(() => {
   return content.value?.userName.split(' ').map(item => item[0]).join('')
 })
-/**
- * Navigate to the details page.
- * @function toDetails
- * @example
- * <button type="button" @click="toDetails">Go to details</button>
- */
 
 const toDetails = () => {
   router.push('/details')
